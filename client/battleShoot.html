@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Battle Shoot client</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            canvas {
+                display: block;
+            }
+        </style>
+    <script>
+    function Circle(x,y,volume,side) {
+        this.x = x;
+        this.y = y;
+        this.volume = this.volume;
+        this.radius = Math.sqrt(volume)/Math.PI;
+        this.side = side;
+        var circle = this;
+        this.render = function() {
+             context.beginPath();
+             context.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI, false);
+             context.fillStyle = side ? 'green' : 'red';
+             context.fill();
+             context.lineWidth = 5;
+             context.strokeStyle = '#003300';
+             context.stroke();
+        }
+    }
+    function Game(totalMass,nCircles) {
+        this.totalMass = totalMass;
+        this.n = nCircles;
+        this.firstTurn = -1; //-1 is left, 1 is right
+        this.currentTurn = this.firstTurn;
+        this.circles = [];
+        
+        
+        
+        var self = this;
+        this.init = function() {
+            console.log(self);
+            /*for(var i=0;i<nCircles;i++) {
+                alert("You're about to pick for "+self.n+" circles so your minimum fraction is 1/"+self.n*2+" and max is "+3*self.n);
+                circles.push(new Circle(prompt("x"),prompt("y"),1/prompt("1/x")*self.totalMass,self.currentTurn));
+            }*/ 
+            self.circles.push(new Circle(300+self.currentTurn*250,100,1*self.totalMass,self.currentTurn));
+            self.circles.push(new Circle(300+self.currentTurn*250,300,1*self.totalMass,self.currentTurn));
+            self.circles.push(new Circle(300+self.currentTurn*250,500,1*self.totalMass,self.currentTurn));
+            self.turn();
+        }
+        this.turn = function() { self.currentTurn = self.currentTurn >0 ? -1 : 1; };
+        this.draw = function() {
+            for(var i in self.circles) {
+                self.circles[i].render();
+            }
+        }
+        
+    }
+    
+        
+        window.addEventListener("load",function(e) {
+            window.context = canvas.getContext('2d');
+                window.addEventListener('resize', resize);
+                function resize() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                } resize();
+             Game = new Game(30000,3);
+             Game.init();
+             Game.init();
+             Game.draw();
+        });
+    </script>
+    </head>
+    <body>
+        <canvas id="canvas">
+            
+        </canvas>
+    </body>
+</html>
