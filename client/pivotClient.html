@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;   
+            }
+            canvas {
+                display: none;
+            }
+            main {
+                display: none;
+            }
+            canvas.active,
+            main.active {
+                display: block;
+            }
+        </style>
+        <script>
+            window.addEventListener('load', function() {
+                var context = canvas.getContext('2d');
+                window.addEventListener('resize', resize);
+                function resize() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }resize();
+            })
+        </script>
+    </head>
+    <body>
+        <canvas id="canvas" class="active">
+            
+        </canvas>
+        <main>
+            
+        </main>
+    </body>
+</html>
